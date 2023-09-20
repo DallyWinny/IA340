@@ -45,3 +45,31 @@ where p_email = 'p1@jmu.edu';
 delete from professor
 where p_email = 'p1@jmu.edu'
 
+/* You need to update the course information before deleting the professor from the table. If you delete the professor first, the information that allows the ability
+to update the course will be deleted as well.*/
+
+--2.7
+select * from enroll
+
+--2.8
+select c_number, count(*) as num_students
+from enroll
+group by c_number
+order by num_students desc
+limit 1
+
+--2.9
+select professor.p_name,
+	   course.c_name
+from professor
+inner join course
+on professor.p_email = course.p_email
+
+--2.10
+select professor.p_name, count(course.c_number) as num_courses_taught
+from professor
+inner join course on professor.p_email = course.p_email
+group by professor.p_name
+order by num_courses_taught desc
+limit 1
+
